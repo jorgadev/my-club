@@ -4,7 +4,7 @@
 
 Simple project built after watching Web Dev Simplified's course. Includes kind of to do list with ability to add players and their statistics.
 
-_Live demo: [numberzen.netlify.app](https://numberzen.netlify.app)_
+_Live demo: [my-club-react.netlify.app](https://my-club-react.netlify.app/)_
 
 ![](header.png)
 
