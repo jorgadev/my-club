@@ -1,22 +1,27 @@
 import React, { useState, useEffect } from "react";
-import "./App.scss";
-import { v4 as uuidv4 } from "uuid";
+import { Grid } from "@chakra-ui/react";
 
+import "./App.scss";
 import PlayerList from "./components/PlayerList";
 import PlayerEdit from "./components/PlayerEdit";
 import Navbar from "./components/Navbar";
+import { samplePlayers } from "./sample-players";
 
-import { Grid } from "@chakra-ui/react";
+// Library for generating random unique ids
+import { v4 as uuidv4 } from "uuid";
 
 export const PlayerContext = React.createContext();
 
 function App() {
   const [selectedPlayerId, setSelectedPlayerId] = useState();
   const [players, setPlayers] = useState(samplePlayers);
+
+  // Get a player with selected id
   const selectedPlayer = players.find(
     (player) => player.id === selectedPlayerId
   );
 
+  // On first render set players to players from LS, otherwise set them to samplePlayers
   useEffect(() => {
     const playersJSON = localStorage.getItem("players");
     if (playersJSON != null) {
@@ -24,10 +29,12 @@ function App() {
     }
   }, []);
 
+  // On first render and when players change, set them to LS
   useEffect(() => {
     localStorage.setItem("players", JSON.stringify(players));
   }, [players]);
 
+  // Declare functions for CRUD operations with players, pass them to context
   const playerContextValue = {
     handlePlayerAdd,
     handlePlayerDelete,
@@ -35,6 +42,7 @@ function App() {
     handlePlayerChange,
   };
 
+  // Add blank player and select him
   function handlePlayerAdd() {
     const newPlayer = {
       id: uuidv4(),
@@ -48,6 +56,7 @@ function App() {
     setPlayers([...players, newPlayer]);
   }
 
+  // Change player after editing
   function handlePlayerChange(id, player) {
     const newPlayers = [...players];
     const index = newPlayers.findIndex((player) => player.id === id);
@@ -55,6 +64,7 @@ function App() {
     setPlayers(newPlayers);
   }
 
+  // Delete player by id passed
   function handlePlayerDelete(id) {
     if (selectedPlayerId != null && selectedPlayerId === id) {
       setSelectedPlayerId(undefined);
@@ -62,6 +72,7 @@ function App() {
     setPlayers(players.filter((player) => player.id !== id));
   }
 
+  // Select player (set the state)
   function handlePlayerSelect(id) {
     setSelectedPlayerId(id);
   }
@@ -76,46 +87,5 @@ function App() {
     </PlayerContext.Provider>
   );
 }
-
-const samplePlayers = [
-  {
-    id: 1,
-    name: "James Rodriguez",
-    nationality: "Colombia",
-    position: "CAM",
-    clubs: "1. Porto\n2. Monaco\n3. Real Madrid\n4. Bayern Munich\n5. Everton",
-    statistics: [
-      {
-        id: 1,
-        name: "Goals",
-        amount: 123,
-      },
-      {
-        id: 2,
-        name: "Assists",
-        amount: 88,
-      },
-    ],
-  },
-  {
-    id: 2,
-    name: "Thierry Henry",
-    nationality: "France",
-    position: "ST",
-    clubs: "1. Monaco\n2. Juventus\n3. Arsenal\n4. Barcelona",
-    statistics: [
-      {
-        id: 1,
-        name: "Goals",
-        amount: 423,
-      },
-      {
-        id: 2,
-        name: "Assists",
-        amount: 224,
-      },
-    ],
-  },
-];
 
 export default App;

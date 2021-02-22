@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from "react";
-import StatisticList from "./StatisticList";
+import { Box, Flex, Heading, Button } from "@chakra-ui/react";
 import { PlayerContext } from "../App";
 
-import { Box, Flex, Heading, Button } from "@chakra-ui/react";
+import StatisticList from "./StatisticList";
 
 export default function Player(props) {
   const { handlePlayerDelete, handlePlayerSelect } = useContext(PlayerContext);

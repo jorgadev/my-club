@@ -1,8 +1,5 @@
 import React, { useContext } from "react";
-import StatisticEdit from "./StatisticEdit";
 import { PlayerContext } from "../App";
-import { v4 as uuidv4 } from "uuid";
-
 import {
   Flex,
   Box,
@@ -14,6 +11,11 @@ import {
   Stat,
 } from "@chakra-ui/react";
 
+import StatisticEdit from "./StatisticEdit";
+
+// Lib for generating random unique id
+import { v4 as uuidv4 } from "uuid";
+
 export default function PlayerEdit({ player }) {
   const { handlePlayerChange, handlePlayerSelect } = useContext(PlayerContext);
 
@@ -21,6 +23,7 @@ export default function PlayerEdit({ player }) {
     handlePlayerChange(player.id, { ...player, ...changes });
   }
 
+  // Similar to handlePlayerChange, replace changed statistic with new one
   function handleStatisticChange(id, statistic) {
     const newStatistics = [...player.statistics];
     const index = newStatistics.findIndex((statistic) => statistic.id === id);
@@ -28,6 +31,7 @@ export default function PlayerEdit({ player }) {
     handleChange({ statistics: newStatistics });
   }
 
+  // Create blank statistic
   function handleStatisticAdd() {
     const newStatistic = {
       id: uuidv4(),
@@ -37,6 +41,7 @@ export default function PlayerEdit({ player }) {
     handleChange({ statistics: [...player.statistics, newStatistic] });
   }
 
+  // Delete statistic by id passed
   function handleStatisticDelete(id) {
     handleChange({
       statistics: player.statistics.filter((statistic) => statistic.id !== id),

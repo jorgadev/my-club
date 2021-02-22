@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
-import Player from "./Player";
 import { PlayerContext } from "../App";
-
 import { Box, Button, Flex } from "@chakra-ui/react";
 
+import Player from "./Player";
+
 export default function PlayerList({ players }) {
-  const { handlePlayerAdd, handlePlayerDelete } = useContext(PlayerContext);
+  const { handlePlayerAdd } = useContext(PlayerContext);
 
   return (
     <Box className="PlayerList">

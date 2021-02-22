@@ -1,10 +1,10 @@
 import React from "react";
-
 import { Grid, FormControl, Input, Button } from "@chakra-ui/react";
 
 export default function StatisticEdit(props) {
   const { statistic, handleStatisticChange, handleStatisticDelete } = props;
 
+  // Change statistic
   function handleChange(changes) {
     handleStatisticChange(statistic.id, { ...statistic, ...changes });
   }

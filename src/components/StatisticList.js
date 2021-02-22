@@ -1,4 +1,5 @@
 import React from "react";
+
 import Statistic from "./Statistic";
 
 export default function StatisticList({ statistics }) {
